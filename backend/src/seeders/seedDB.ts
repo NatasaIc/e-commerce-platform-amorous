@@ -27,13 +27,14 @@ const seedDB = async () => {
     await User.deleteMany();
     console.log('Products deleted successfully!');
 
-    console.log('Inserting new products...');
-    await Product.insertMany(productData);
-    await User.insertMany(userData);
-    console.log('Product data inserted successfully!');
+    const insertedProducts = await Product.insertMany(productData);
+    console.log('Inserted products:', insertedProducts);
+
+    const insertedUsers = await User.insertMany(userData);
+    console.log('Inserted users:', insertedUsers);
   } catch (error) {
     console.error('Error connecting to db:', error);
-    process.exit(1); // Exit the process if connection fails
+    process.exit(1);
   }
 };
 
@@ -51,8 +52,9 @@ const deleteData = async () => {
 };
 
 // Command line argument handling for import or delete
-if (process.argv[2] === '--import') {
-  seedDB();
-} else if (process.argv[2] === '--delete') {
+if (process.argv[2] === '--delete') {
   deleteData();
+} else if (process.argv[2] === '--import') {
+  seedDB();
 }
+console.log(process.argv);
