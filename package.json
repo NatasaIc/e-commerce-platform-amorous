@@ -1,0 +1,28 @@
+{
+  "name": "amorous",
+  "version": "1.0.0",
+  "description": "e-commerce platform amorous",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
+    "data:import": "npx ts-node backend/src/seeders/seedDb.ts --import",
+    "data:destroy": "npx ts-node backend/src/seeders/seedDb.ts --delete"
+  },
+  "author": "Natasa Iconomou",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
