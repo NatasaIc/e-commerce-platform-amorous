@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Product from '../models/productModel';
 import { productData } from './productData';
+import { userData } from './userData';
+import User from '../models/userModel';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../config.env') });
 
@@ -21,12 +23,13 @@ const seedDB = async () => {
     await mongoose.connect(dbURI);
     console.log('Connected to MongoDB successfully!');
 
-    console.log('Deleting existing products...');
     await Product.deleteMany();
+    await User.deleteMany();
     console.log('Products deleted successfully!');
 
     console.log('Inserting new products...');
     await Product.insertMany(productData);
+    await User.insertMany(userData);
     console.log('Product data inserted successfully!');
   } catch (error) {
     console.error('Error connecting to db:', error);
@@ -37,6 +40,7 @@ const seedDB = async () => {
 const deleteData = async () => {
   try {
     await Product.deleteMany();
+    await User.deleteMany();
 
     console.log('Data Destroyed!');
     process.exit();
