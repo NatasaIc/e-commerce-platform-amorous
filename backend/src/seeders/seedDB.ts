@@ -10,7 +10,6 @@ dotenv.config({ path: path.resolve(__dirname, '../../../config.env') });
 
 const seedDB = async () => {
   try {
-    console.log('Starting database connection...');
     const dbURI = process.env.DATABASE?.replace(
       '<PASSWORD>',
       process.env.DATABASE_PASSWORD || ''
@@ -25,7 +24,6 @@ const seedDB = async () => {
 
     await Product.deleteMany();
     await User.deleteMany();
-    console.log('Products deleted successfully!');
 
     const insertedProducts = await Product.insertMany(productData);
     console.log('Inserted products:', insertedProducts);
