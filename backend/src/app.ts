@@ -5,10 +5,8 @@ import userRouter from './routers/userRouter';
 
 export const app = express();
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Use product routes
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 
