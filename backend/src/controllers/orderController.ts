@@ -6,23 +6,23 @@ import asyncHandler from '../middleware/asyncHandler';
 // @route   POST /api/orders
 // @access  Private
 const createOrder = asyncHandler(async (req: Request, res: Response) => {
-  const { products, shippingAdress, paymentMethod } = req.body;
+  console.log(req.user);
+  const { products, shippingAdress, paymentMethod, name } = req.body;
 
-  if (!products || !shippingAdress || !paymentMethod) {
+  if (!products || !shippingAdress || !paymentMethod || !name) {
     res.status(400).json({ message: 'Please provide all order details.' });
     return;
   }
-
   // Calculate total price of the order
   const totalPrice = products.reduce(
     (acc: number, item: { price: number; quantity: number }) =>
       acc + item.price * item.quantity,
     0
   );
-
   const order = new Order({
-    user: req.user._id,
+    user: req.user?._id,
     products,
+    name,
     shippingAdress,
     paymentMethod,
     totalPrice,
@@ -39,3 +39,8 @@ const getAllOrders = asyncHandler(async (req: Request, res: Response) => {
   const orders = await Order.find().populate('user', 'name email');
   res.json(orders);
 });
+
+export const orderController = {
+  createOrder,
+  getAllOrders,
+};

@@ -4,7 +4,9 @@ import path from 'path';
 import Product from '../models/productModel';
 import { productData } from './productData';
 import { userData } from './userData';
+import { orderTestData } from './orderTestData';
 import User from '../models/userModel';
+import Order from '../models/orderModel';
 
 dotenv.config({ path: path.resolve(__dirname, '../../../config.env') });
 
@@ -22,14 +24,18 @@ const seedDB = async () => {
     await mongoose.connect(dbURI);
     console.log('Connected to MongoDB successfully!');
 
-    await Product.deleteMany();
-    await User.deleteMany();
+    await Order.deleteMany();
+    // await Product.deleteMany();
+    // await User.deleteMany();
 
-    const insertedProducts = await Product.insertMany(productData);
-    console.log('Inserted products:', insertedProducts);
+    const insertedUsers = await Order.insertMany(orderTestData);
+    console.log('Inserted order:', insertedUsers);
 
-    const insertedUsers = await User.insertMany(userData);
-    console.log('Inserted users:', insertedUsers);
+    // const insertedProducts = await Product.insertMany(productData);
+    // console.log('Inserted products:', insertedProducts);
+
+    // const insertedUsers = await User.insertMany(userData);
+    // console.log('Inserted users:', insertedUsers);
   } catch (error) {
     console.error('Error connecting to db:', error);
     process.exit(1);
@@ -38,8 +44,9 @@ const seedDB = async () => {
 
 const deleteData = async () => {
   try {
-    await Product.deleteMany();
-    await User.deleteMany();
+    // await Product.deleteMany();
+    // await User.deleteMany();
+    await Order.deleteMany();
 
     console.log('Data Destroyed!');
     process.exit();
