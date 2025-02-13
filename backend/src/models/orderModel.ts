@@ -4,7 +4,6 @@ interface IProduct {
   product: mongoose.Types.ObjectId;
   quantity: number;
   price: number;
-  name: string;
 }
 
 interface IOrder extends Document {
@@ -26,7 +25,6 @@ const orderSchema = new Schema<IOrder>({
         type: mongoose.Schema.Types.ObjectId,
         quantity: { type: Number, required: true },
         price: { type: Number, required: true },
-        name: { type: String, required: true },
       },
       quantity: { type: Number, required: true },
       price: { type: Number, required: true },

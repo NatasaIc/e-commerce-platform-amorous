@@ -64,6 +64,45 @@ const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
   res.json({ message: 'Product deleted successfully' });
 });
 
+// @desc    Create a new review
+// @route   Post/api/products/:id/reviews
+// @access  Private
+// const createProductReview = asyncHandler(
+//   async (req: Request, res: Response) => {
+//     const { rating, comment } = req.body;
+
+//     if (!rating || !comment) {
+//       res.status(400).json({ message: 'Please add a rating and a comment' });
+//       return;
+//     }
+
+//     const product = await Product.findById(req.params.id);
+//     if (!product) {
+//       res.status(404).json({ message: 'Product not found' });
+//       return;
+//     }
+
+//     const reviewExists = product.reviews.some(
+//       (review) => review.user?.toString() === req.user?._id.toString()
+//     );
+
+//     const newReview = {
+//       user: req.user?._id,
+//       rating,
+//       comment,
+//     };
+
+//     product.reviews.push(newReview);
+//     product.totalPrice = product.reviews.length;
+//     product.averageRating =
+//       product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+//       product.reviews.length;
+
+//     await product.save();
+//     res.status(201).json(product);
+//   }
+// );
+
 export const productController = {
   getAllProducts,
   createProduct,

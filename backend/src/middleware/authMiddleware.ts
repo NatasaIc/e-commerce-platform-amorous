@@ -7,7 +7,7 @@ interface JwtPayload {
   id: string;
 }
 
-const protect = asyncHandler(
+export const protect = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token;
 
@@ -46,5 +46,3 @@ export const admin = (req: Request, res: Response, next: NextFunction) => {
     res.status(401).json({ message: 'Not authorized as an admin' });
   }
 };
-
-export default protect;

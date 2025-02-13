@@ -1,6 +1,8 @@
+import mongoose from 'mongoose';
 import { Request, Response } from 'express';
 import User from '../models/userModel';
 import asyncHandler from '../middleware/asyncHandler';
+import { generateToken } from '../utils/generateToken';
 
 // @desc   GET all users
 // @route  GET /api/users
@@ -30,9 +32,26 @@ const getUserById = asyncHandler(
 // @route   POST /api/users
 // @access  Private/admin
 const createUser = asyncHandler(async (req: Request, res: Response) => {
-  const newUser = new User(req.body);
+  const { name, email, password, isAdmin } = req.body;
+
+  const newUser = new User({
+    name,
+    email,
+    password,
+    isAdmin,
+  });
+
   await newUser.save();
-  res.status(201).json(newUser);
+
+  const token = generateToken(newUser._id as mongoose.Types.ObjectId);
+
+  res.status(201).json({
+    _id: newUser._id,
+    name: newUser.name,
+    email: newUser.email,
+    isAdmin: newUser.isAdmin,
+    token,
+  });
 });
 
 // @desc    Update a user

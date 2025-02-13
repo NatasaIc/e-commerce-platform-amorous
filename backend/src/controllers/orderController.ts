@@ -7,9 +7,9 @@ import asyncHandler from '../middleware/asyncHandler';
 // @access  Private
 const createOrder = asyncHandler(async (req: Request, res: Response) => {
   console.log(req.user);
-  const { products, shippingAdress, paymentMethod, name } = req.body;
+  const { products, shippingAdress, paymentMethod } = req.body;
 
-  if (!products || !shippingAdress || !paymentMethod || !name) {
+  if (!products || !shippingAdress || !paymentMethod) {
     res.status(400).json({ message: 'Please provide all order details.' });
     return;
   }
@@ -22,7 +22,6 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
   const order = new Order({
     user: req.user?._id,
     products,
-    name,
     shippingAdress,
     paymentMethod,
     totalPrice,
